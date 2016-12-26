@@ -1,0 +1,142 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>彩票</title>
+	<style>
+			*{margin: 0;padding: 0;}
+			.header{height: 40px;width: 100%;background: #6d0106;}
+			.header h2{text-align: center;line-height: 40px;color: #fff;font-size: 20px;}
+			
+			.manbox h3{line-height: 40px;margin-left: 30px;clear: both;}
+			.top span,.bot span{width: 10%;float: left;text-align: center;height: 50px;padding-left: 30px}
+			.top a{color: red;text-align: center;line-height: 30px;width: 30px;height: 30px;display: block;}
+			.top a.redbg{background: #a20008;color: #fff;border-radius: 50%;}
+			.bot a{color: blue;text-align: center;line-height: 30px;width: 30px;height: 30px;display: block;}
+			.bot a.bluebg{background: blue;color: #fff;border-radius: 50%;}
+
+			.listul{height: 40px;background: #6d0106;width: 100%;margin:30px  0 0 0;clear: both;}
+			.listul li{float: left;text-align: center;color: #fff;list-style: none;width: 33.3%;line-height: 40px;font-weight: bolder;cursor: pointer;}
+
+
+
+	</style>
+</head>
+<body>
+
+
+
+
+	<div class="box">
+		<div class="header">
+			<h2 id="hh">随机抽奖</h2>
+		</div>
+
+		<div class="manbox">
+			<h3 style="color:red">红球</h3>
+			<div class="top" id="top">
+				
+			</div>
+			<h3 style="color:blue">蓝球</h3>
+			<div class="bot" id="bot">
+				
+			</div>
+		</div>
+
+		<div class="listul">
+			<ul>
+				<li  id="empty">清空</li>
+				<li  id="round">机选</li>
+				<li>你牛逼</li>
+			</ul>
+		</div>
+	</div>
+
+
+	<script>
+		function $(id){
+			return document.getElementById(id);
+		}
+		var  arr1=[],arr2=[];
+		for(var i=1;i<=33;i++){
+				if(i<=16){
+				  arr2.push(i);
+				}
+				arr1.push(i);
+		};
+		function int(){
+			var  str1="",str2="";
+			for(var i=0;i<arr1.length;i++){
+				var  rednum=arr1[i]<10?"0"+arr1[i]:arr1[i];
+				str1+="<span><a>"+rednum+"</a></span>";	
+			}
+			$("top").innerHTML=str1;
+			for(var i=0;i<arr2.length;i++){
+				var  rednum=arr2[i]<10?"0"+arr2[i]:arr2[i];
+				str2+="<span><a>"+rednum+"</a></span>";	
+			}
+			$("bot").innerHTML=str2;
+		}
+		int();
+		var  newarr1=[],newarr2=[];
+		function  randomn(){
+			newarr1=[],newarr2=[];
+			for(var i=0;newarr1.length<6;i++){
+			  var ranm=Math.floor(Math.random()*33+1);
+			  if(newarr1.indexOf(ranm)==-1){
+			  		 newarr1.push(ranm);
+			  }
+			 
+			}
+			newarr1.sort(function(a,b){return a>b;})
+			console.log(newarr1)
+			for(var i=0;newarr2.length<1;i++){
+			  var ranm=Math.floor(Math.random()*16+1);
+			  if(newarr2.indexOf(ranm)==-1){
+			  	newarr2.push(ranm);
+			  }
+			}
+			newarr2.sort(function(a,b){return a>b;})
+			console.log(newarr2)
+			
+		}
+	    	var  reda=$("top").getElementsByTagName("a");
+		var  bluea=$("bot").getElementsByTagName("a");
+		$("round").onclick=function(){
+		    newarr1=[],newarr2=[];
+		    randomn();
+		    for(var i=0;i<arr1.length;i++){
+		    	reda[i].className="";
+		    	for(var j=0;j<newarr1.length;j++){
+		    		if(reda[i].innerHTML==newarr1[j]){
+		    			reda[i].className="redbg";
+		    		}
+		    	}
+		    }
+		    for(var i=0;i<arr2.length;i++){
+		    	bluea[i].className="";
+		    	for(var j=0;j<newarr2.length;j++){
+		    		if(bluea[i].innerText==newarr2[j]){
+		    			bluea[i].className="bluebg";
+		    		}
+		    	}
+		    }
+		}
+		$("empty").onclick=function(){
+			newarr1=[],newarr2=[];
+		    for(var i=0;i<arr1.length;i++){
+		    	reda[i].className="";
+		    }
+		    for(var i=0;i<arr2.length;i++){
+		    	bluea[i].className="";
+		    }		
+		}
+
+
+
+
+
+	</script>
+</body>
+</html>
